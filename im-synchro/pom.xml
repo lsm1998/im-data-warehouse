@@ -61,9 +61,13 @@
 
         <dependency>
             <groupId>com.ververica</groupId>
-            <!-- add the dependency matching your database -->
             <artifactId>flink-connector-mysql-cdc</artifactId>
-            <!-- The dependency is available only for stable releases, SNAPSHOT dependency need build by yourself. -->
+            <version>2.3.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ververica</groupId>
+            <artifactId>flink-connector-mongodb-cdc</artifactId>
             <version>2.3.0</version>
         </dependency>
 

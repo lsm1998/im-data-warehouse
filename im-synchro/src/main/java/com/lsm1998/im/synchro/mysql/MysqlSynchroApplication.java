@@ -1,11 +1,11 @@
-package com.lsm1998.im.synchro;
+package com.lsm1998.im.synchro.mysql;
 
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import com.ververica.cdc.debezium.JsonDebeziumDeserializationSchema;
 import com.ververica.cdc.connectors.mysql.source.MySqlSource;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 
-public class SynchroApplication
+public class MysqlSynchroApplication
 {
     /**
      * <a href="https://ververica.github.io/flink-cdc-connectors/master">flink cdc 文档</a>
