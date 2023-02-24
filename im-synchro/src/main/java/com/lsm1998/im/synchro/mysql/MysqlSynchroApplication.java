@@ -1,7 +1,8 @@
 package com.lsm1998.im.synchro.mysql;
 
+import com.lsm1998.im.synchro.serialization.Deserialization;
+import com.ververica.cdc.connectors.mysql.table.StartupOptions;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import com.ververica.cdc.debezium.JsonDebeziumDeserializationSchema;
 import com.ververica.cdc.connectors.mysql.source.MySqlSource;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
 
@@ -21,7 +22,8 @@ public class MysqlSynchroApplication
                 .tableList("cdc-test.users") // set captured table
                 .username("root")
                 .password("mysqlyyds123")
-                .deserializer(new JsonDebeziumDeserializationSchema()) // converts SourceRecord to JSON String
+                .startupOptions(StartupOptions.initial()) // 全量同步
+                .deserializer(new Deserialization()) // converts SourceRecord to JSON String
                 .build();
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
