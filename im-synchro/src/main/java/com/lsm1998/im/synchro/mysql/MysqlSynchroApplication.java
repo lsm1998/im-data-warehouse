@@ -1,10 +1,12 @@
 package com.lsm1998.im.synchro.mysql;
 
 import com.lsm1998.im.synchro.serialization.Deserialization;
+import com.lsm1998.im.synchro.sink.MessageSink;
 import com.ververica.cdc.connectors.mysql.table.StartupOptions;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import com.ververica.cdc.connectors.mysql.source.MySqlSource;
 import org.apache.flink.api.common.eventtime.WatermarkStrategy;
+import org.apache.flink.streaming.api.functions.sink.SinkFunction;
 
 public class MysqlSynchroApplication
 {
@@ -33,9 +35,8 @@ public class MysqlSynchroApplication
 
         env
                 .fromSource(mySqlSource, WatermarkStrategy.noWatermarks(), "MySQL Source")
-                // set 4 parallel source tasks
-                .setParallelism(4)
-                .print().setParallelism(1); // use parallelism 1 for sink to keep message ordering
+                .setParallelism(1).
+                addSink(new MessageSink());
 
         env.execute("CDC MySQL Job");
     }
